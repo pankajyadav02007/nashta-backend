@@ -4,7 +4,7 @@
   "main": "index.mjs",
   "scripts": {
     "start": "node index.mjs",
-    "dev":"nodemon "
+    "dev": "nodemon "
   },
   "keywords": [],
   "author": "Pankaj",
@@ -12,9 +12,14 @@
   "type": "module",
   "description": "learn basic of node js",
   "dependencies": {
-    "express": "^5.2.1"
+    "@prisma/adapter-pg": "^7.7.0",
+    "@prisma/client": "^7.7.0",
+    "dotenv": "^17.4.2",
+    "express": "^5.2.1",
+    "pg": "^8.20.0"
   },
   "devDependencies": {
-    "nodemon": "^3.1.14"
+    "nodemon": "^3.1.14",
+    "prisma": "^7.7.0"
   }
 }
