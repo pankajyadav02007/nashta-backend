@@ -1,0 +1,20 @@
+{
+  "name": "basic-backend",
+  "version": "0.1.0",
+  "main": "index.mjs",
+  "scripts": {
+    "start": "node index.mjs",
+    "dev":"nodemon "
+  },
+  "keywords": [],
+  "author": "Pankaj",
+  "license": "MIT",
+  "type": "module",
+  "description": "learn basic of node js",
+  "dependencies": {
+    "express": "^5.2.1"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.14"
+  }
+}
