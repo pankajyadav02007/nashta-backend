@@ -1,4 +1,5 @@
 import express from "express";
+import { prisma } from "./prisma/prisma_client.mjs";
 const app = express();
 const port = 3000;
 
@@ -19,11 +20,16 @@ app.post("/login", (req, res) => {
 });
 
 // signup
-app.post("/signup", (req, res) => {
+app.post("/signup", async (req, res) => {
   console.log(req.body);
-  res.status(200).json({
-    name: "signup",
+  const user = await prisma.user.create({
+    data: {
+      email: req.body.email,
+      name: req.body.name,
+      password: req.body.password,
+    },
   });
+  res.json({ user });
 });
 
 app.listen(port, () => {
