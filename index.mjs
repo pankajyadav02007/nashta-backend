@@ -12,10 +12,23 @@ app.get("/", (req, res) => {
 });
 
 // login
-app.post("/login", (req, res) => {
-  console.log(req.body);
+app.post("/login", async (req, res) => {
+  const user = await prisma.user.findUnique({
+    where: {
+      email: req.body.email,
+    },
+  });
+  if (!user) {
+    res.status(404).json({ error: "user not found" });
+    return;
+  }
+  if (user.password !== req.body.password) {
+    res.status(401).json({ error: "password not match" });
+    return;
+  }
+
   res.status(200).json({
-    name: "login",
+    massage: `login successfull Welcome, ${user.name}`,
   });
 });
 
