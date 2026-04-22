@@ -1,5 +1,6 @@
 import express from "express";
 import { prisma } from "./prisma/prisma_client.mjs";
+import bcrypt from "bcrypt";
 const app = express();
 const port = 3000;
 
@@ -22,7 +23,7 @@ app.post("/login", async (req, res) => {
     res.status(404).json({ error: "user not found" });
     return;
   }
-  if (user.password !== req.body.password) {
+  if (!(await bcrypt.compare(req.body.password, user.password))) {
     res.status(401).json({ error: "password not match" });
     return;
   }
@@ -35,11 +36,12 @@ app.post("/login", async (req, res) => {
 // signup
 app.post("/signup", async (req, res) => {
   console.log(req.body);
+  const hashPassword = await bcrypt.hash(req.body.password, 10);
   const user = await prisma.user.create({
     data: {
       email: req.body.email,
       name: req.body.name,
-      password: req.body.password,
+      password: hashPassword,
     },
   });
   res.json({ user });
